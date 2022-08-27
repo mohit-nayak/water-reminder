@@ -22,15 +22,19 @@ const setupWebhook = async () => {
     }
 }
 
-app.use(bodyParser.json()) // for parsing application/json
+
+// middlewares
+app.use(express.json())
+
+/*app.use(bodyParser.json()) // for parsing application/json
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-) // for parsing application/x-www-form-urlencoded
+) // for parsing application/x-www-form-urlencoded*/
 
 //This is the route the API will call
-app.post("/", function(req, res) {
+app.post(URI, function(req, res) {
     const { message } = req.body
 
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
