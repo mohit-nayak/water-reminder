@@ -22,9 +22,13 @@ app.post("/", function(req, res) {
         return res.end()
     }*/
 
+    console.log("message ", message.text);
+
     if (!message || message.text.toLowerCase() === "start reminder") {
-        console.log("message ", message.text);
         // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
+
+        console.log("entered ");
+
 
         interval = setInterval(() => {
             axios
