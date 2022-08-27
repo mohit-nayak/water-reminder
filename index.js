@@ -38,7 +38,7 @@ app.post("/", function(req, res) {
             )
             .then((response) => {
                 // We get here if the message was successfully posted
-                console.log("Message posted")
+                console.log("Message posted for ", message.text);
                 res.end("ok")
             })
             .catch((err) => {
