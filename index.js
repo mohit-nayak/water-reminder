@@ -11,7 +11,7 @@ app.use(
 ) // for parsing application/x-www-form-urlencoded
 
 //This is the route the API will call
-app.post("/", function(req, res) {
+app.post("/", async function(req, res) {
     const { message } = req.body
 
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
@@ -45,36 +45,56 @@ app.post("/", function(req, res) {
             }
         }, 3000);*/
 
-        axios
-            .post(
-                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                {
-                    chat_id: message.chat.id,
-                    text: `Polo!!! ${message.chat.id}`,
-                }
-            )
-            .then((response) => {
-                // We get here if the message was successfully posted
-                console.log("Message posted for ", message.text);
-                res.end("ok")
-            })
-            .catch((err) => {
-                // ...and here if it was not
-                // console.log("Error :", err)
-                res.end("Error :" + err)
-            })
+        await doSomething()
+        res.status(200).send("ok");
 
     } else {
-        res.end(); 
+        res.end();
     }
 
 
     // If we've gotten this far, it means that we have received a message containing the word "marco".
     // Respond by hitting the telegram bot API and responding to the appropriate chat_id with the word "Polo!!"
     // Remember to use your own API toked instead of the one below  "https://api.telegram.org/bot<your_api_token>/sendMessage"
+});
 
 
-})
+
+async function* doLoopyThing(){
+    axios
+        .post(
+            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+            {
+                chat_id: message.chat.id,
+                text: `Polo!!! ${message.chat.id}`,
+            }
+        )
+        .then((response) => {
+            // We get here if the message was successfully posted
+            console.log("Message posted for ", message.text);
+            res.end("ok")
+        })
+        .catch((err) => {
+            // ...and here if it was not
+            // console.log("Error :", err)
+            res.end("Error :" + err)
+        });
+    
+    await delay(3000);
+}
+
+function doSomething(){
+    return new Promise(resolve => {
+        const looper = doLoopyThing();
+        looper.next().then(({value}) => resolve(value));
+        looper.next();
+    });
+}
+
+const delay = async (ms) => {
+    return await new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 // Finally, start our server
 app.listen(3000, function() {
