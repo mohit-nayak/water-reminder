@@ -39,17 +39,18 @@ app.post("/", function(req, res) {
             .then((response) => {
                 // We get here if the message was successfully posted
                 console.log("Message posted for ", message.text);
-                res.end("ok")
+                // res.end("ok")
             })
             .catch((err) => {
                 // ...and here if it was not
-                console.log("Error :", err)
-                res.end("Error :" + err)
+                // console.log("Error :", err)
+                // res.end("Error :" + err)
             })
 
         i++;
         if (i > 3) {
             clearInterval(interval);
+            res.end("ok");
         }
     }, 3000);
 })
