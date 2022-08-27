@@ -36,30 +36,39 @@ app.use(
 //This is the route the API will call
 app.post("/", function(req, res) {
     const { message } = req.body
-
+    let i = 0;
+    var timer;
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
     if (!message || message.text.toLowerCase().indexOf("start") > -1) {
         // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
 
-        axios
-            .post(
-                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                {
-                    chat_id: message.chat.id,
-                    text: `Polo!!! ${message.chat.id}`,
-                }
-            )
-            .then((response) => {
-                // We get here if the message was successfully posted
-                console.log("Message posted for ", message.text);
-                res.end("ok")
-            })
-            .catch((err) => {
-                // ...and here if it was not
-                // console.log("Error :", err)
-                res.end("Error :" + err)
-            });
+        timer = setInterval(() => {
+            axios
+                .post(
+                    "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+                    {
+                        chat_id: message.chat.id,
+                        text: `Polo!!! ${message.chat.id}`,
+                    }
+                )
+                .then((response) => {
+                    // We get here if the message was successfully posted
+                    console.log("Message posted for ", message.text);
+                    // res.end("ok")
+                })
+                .catch((err) => {
+                    // ...and here if it was not
+                    // console.log("Error :", err)
+                    // res.end("Error :" + err)
+                });
+
+            i++;
+
+            if (i > 5) {
+                clearInterval(timer);
+            }
+        }, 3000);
     } else {
         res.end();
     }
