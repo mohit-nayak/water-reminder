@@ -16,7 +16,7 @@ app.post("/", function(req, res) {
 
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
-    if (!message || message.text.toLowerCase() === "start") {
+    if (!message || message.text.toLowerCase().indexOf("start") > -1) {
         // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
         /*var interval = setInterval(() => {
             axios
