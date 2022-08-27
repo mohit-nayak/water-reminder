@@ -28,7 +28,30 @@ app.post("/", function(req, res) {
 
 
     const interval = setInterval(() => {
-        
+        axios
+            .post(
+                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+                {
+                    chat_id: message.chat.id,
+                    text: `Polo!!! ${i}`,
+                }
+            )
+            .then((response) => {
+                // We get here if the message was successfully posted
+                console.log("Message posted for ", message.text);
+                // res.end("ok")
+            })
+            .catch((err) => {
+                // ...and here if it was not
+                // console.log("Error :", err)
+                // res.end("Error :" + err)
+            })
+
+        i++;
+        if (i > 3) {
+            clearInterval(interval);
+            res.end("ok");
+        }
     }, 3000);
 })
 
