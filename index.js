@@ -29,27 +29,29 @@ app.post("/", function(req, res) {
 
         console.log("entered ");
 
+        axios
+            .post(
+                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+                {
+                    chat_id: message.chat.id,
+                    text: "Hello Mohit!!",
+                }
+            )
+            .then((response) => {
+                // We get here if the message was successfully posted
+                console.log("Message posted")
+                res.end("ok")
+            })
+            .catch((err) => {
+                // ...and here if it was not
+                console.log("Error :", err)
+                res.end("Error :" + err)
+            });
 
-        interval = setInterval(() => {
-            axios
-                .post(
-                    "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                    {
-                        chat_id: message.chat.id,
-                        text: "Polo!!",
-                    }
-                )
-                .then((response) => {
-                    // We get here if the message was successfully posted
-                    console.log("Message posted")
-                    res.end("ok")
-                })
-                .catch((err) => {
-                    // ...and here if it was not
-                    console.log("Error :", err)
-                    res.end("Error :" + err)
-                });
-        }, 5000);
+
+        /*interval = setInterval(() => {
+
+        }, 5000);*/
     }
 
     // If we've gotten this far, it means that we have received a message containing the word "marco".
