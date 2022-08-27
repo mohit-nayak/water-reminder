@@ -50,7 +50,7 @@ app.post("/", function(req, res) {
                 "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
                 {
                     chat_id: message.chat.id,
-                    text: `Polo!!! ${i}`,
+                    text: `Polo!!! ${message.chat.id}`,
                 }
             )
             .then((response) => {
@@ -64,7 +64,10 @@ app.post("/", function(req, res) {
                 res.end("Error :" + err)
             })
 
+    } else {
+        res.end();
     }
+
 
     // If we've gotten this far, it means that we have received a message containing the word "marco".
     // Respond by hitting the telegram bot API and responding to the appropriate chat_id with the word "Polo!!"
