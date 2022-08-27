@@ -33,11 +33,12 @@ app.use(
     })
 ) // for parsing application/x-www-form-urlencoded*/
 
+var timer;
+
 //This is the route the API will call
 app.post("/", function(req, res) {
     const { message } = req.body
     let i = 0;
-    var timer;
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
     if (!message || message.text.toLowerCase().indexOf("start") > -1) {
@@ -65,11 +66,13 @@ app.post("/", function(req, res) {
 
             i++;
 
-            if (i > 5) {
-                clearInterval(timer);
-            }
         }, 3000);
-    } else {
+    }
+    else if (!message || message.text.toLowerCase().indexOf("stop") > -1) {
+        clearInterval(timer);
+        res.end("ok");
+    }
+    else {
         res.end();
     }
 
