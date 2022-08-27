@@ -45,7 +45,7 @@ app.post("/", async function(req, res) {
             }
         }, 3000);*/
 
-        await doSomething()
+        await doSomething(message)
         res.status(200).send("ok");
 
     } else {
@@ -60,7 +60,7 @@ app.post("/", async function(req, res) {
 
 
 
-async function* doLoopyThing(){
+async function* doLoopyThing(message){
     axios
         .post(
             "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
@@ -79,13 +79,13 @@ async function* doLoopyThing(){
             // console.log("Error :", err)
             res.end("Error :" + err)
         });
-    
+
     await delay(3000);
 }
 
-function doSomething(){
+function doSomething(message){
     return new Promise(resolve => {
-        const looper = doLoopyThing();
+        const looper = doLoopyThing(message);
         looper.next().then(({value}) => resolve(value));
         looper.next();
     });
