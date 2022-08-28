@@ -61,7 +61,7 @@ const sendMessage = (res, chatID, text) => {
         )
         .then((response) => {
             // We get here if the message was successfully posted
-            console.log("Message posted for ", message.text);
+            console.log("Message posted for ", text);
             res.end("ok")
         })
         .catch((err) => {
