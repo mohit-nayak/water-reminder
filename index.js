@@ -44,7 +44,7 @@ app.post("/", function(req, res) {
     }
     else if (chatFromClient) {
         let chatID = chatFromClient;
-        let text = `Water reminder for ${chatID}`;
+        let text = `Water reminder. Stay hydrated!`;
 
         sendMessage(res, chatID, text);
     }
