@@ -14,22 +14,18 @@ const URI = `/webhook/${TELEGRAM_TOKEN}`
 const webhookURL = `${SERVER_URL}${URI}`
 
 
-app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.json())
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-) // for parsing application/x-www-form-urlencoded
+)
 
 cors({credentials: false, origin: false})
 
 app.use(cors());
 
-var timer;
-
-//This is the route the API will call
 app.post("/", function(req, res) {
-    // console.log("req", req)
     const { message, chatFromClient } = req.body
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
@@ -43,7 +39,6 @@ app.post("/", function(req, res) {
         sendMessage(res, chatID, text);
     }
     else if (chatFromClient) {
-        console.log("chat from client for ", chatFromClient);
         let chatID = chatFromClient;
         let text = `Water reminder. Stay hydrated!`;
 
@@ -57,33 +52,23 @@ app.post("/", function(req, res) {
 });
 
 const sendMessage = (res, chatID, text) => {
-    console.log("Sending msg...")
-    res.end();
-    console.log("Still sending...", chatID, text)
-    timer = setInterval(() => {
-        console.log("request sent ")
-        axios
-            .post(
-                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                {
-                    chat_id: chatID,
-                    text,
-                }
-            )
-            .then((response) => {
-                // We get here if the message was successfully posted
-                console.log("Message posted for ", text);
-                res.end("Request successful")
-            })
-            .catch((err) => {
-                // ...and here if it was not
-                // console.log("Error :", err)
-                res.end("Error :" + err)
-            });
-    }, 15000);
+    axios
+        .post(
+            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+            {
+                chat_id: chatID,
+                text,
+            }
+        )
+        .then((response) => {
+            console.log("Message posted for ", text);
+            res.end("Request successful")
+        })
+        .catch((err) => {
+            res.end("Error :" + err)
+        });
 };
 
-// Finally, start our server
 app.listen(PORT, async function() {
     console.log("Telegram app listening on port 3000!")
 })
