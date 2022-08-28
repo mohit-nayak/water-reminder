@@ -25,6 +25,8 @@ cors({credentials: false, origin: false})
 
 app.use(cors());
 
+var timer;
+
 //This is the route the API will call
 app.post("/", function(req, res) {
     console.log("req", req)
@@ -56,24 +58,27 @@ app.post("/", function(req, res) {
 });
 
 const sendMessage = (res, chatID, text) => {
-    axios
-        .post(
-            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-            {
-                chat_id: chatID,
-                text,
-            }
-        )
-        .then((response) => {
-            // We get here if the message was successfully posted
-            console.log("Message posted for ", text);
-            res.end("Request successful")
-        })
-        .catch((err) => {
-            // ...and here if it was not
-            // console.log("Error :", err)
-            res.end("Error :" + err)
-        });
+    res.end();
+    timer = setInterval(() => {
+        axios
+            .post(
+                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+                {
+                    chat_id: chatID,
+                    text,
+                }
+            )
+            .then((response) => {
+                // We get here if the message was successfully posted
+                console.log("Message posted for ", text);
+                res.end("Request successful")
+            })
+            .catch((err) => {
+                // ...and here if it was not
+                // console.log("Error :", err)
+                res.end("Error :" + err)
+            });
+    }, 15000);
 };
 
 // Finally, start our server
