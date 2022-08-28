@@ -59,8 +59,9 @@ app.post("/", function(req, res) {
 const sendMessage = (res, chatID, text) => {
     console.log("Sending msg...")
     res.end();
-    console.log("Still sending...")
+    console.log("Still sending...", chatID, text)
     timer = setInterval(() => {
+        console.log("request sent ")
         axios
             .post(
                 "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
