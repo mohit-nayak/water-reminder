@@ -12,15 +12,6 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`
 const URI = `/webhook/${TELEGRAM_TOKEN}`
 const webhookURL = `${SERVER_URL}${URI}`
 
-// configuring the bot via Telegram API to use our route below as webhook
-/*const setupWebhook = async () => {
-    try {
-        const { data } = await axios.get(`${TELEGRAM_API}/setWebhook?url=${webhookURL}&drop_pending_updates=true`)
-        console.log(data)
-    } catch (error) {
-        return error
-    }
-}*/
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(
@@ -35,7 +26,7 @@ app.post("/", function(req, res) {
     const { message, chatFromClient } = req.body
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
-    if (message) {
+    if (message && !chatFromClient) {
         // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
 
         let chatID = message.chat.id;
@@ -44,55 +35,41 @@ app.post("/", function(req, res) {
             text = `${message.chat.id} is your chat id`
         }
 
-        axios
-            .post(
-                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                {
-                    chat_id: chatID,
-                    text,
-                }
-            )
-            .then((response) => {
-                // We get here if the message was successfully posted
-                console.log("Message posted for ", message.text);
-                res.end("ok")
-            })
-            .catch((err) => {
-                // ...and here if it was not
-                // console.log("Error :", err)
-                res.end("Error :" + err)
-            });
+        sendMessage(res, chatID, text);
     }
     else if (chatFromClient) {
         let chatID = chatFromClient;
         let text = `Water reminder for ${chatID}`;
 
-        axios
-            .post(
-                "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-                {
-                    chat_id: chatID,
-                    text,
-                }
-            )
-            .then((response) => {
-                // We get here if the message was successfully posted
-                console.log("Message posted for ", message.text);
-                res.end("ok")
-            })
-            .catch((err) => {
-                // ...and here if it was not
-                // console.log("Error :", err)
-                res.end("Error :" + err)
-            });
-    } else {
+        sendMessage(res, chatID, text);
+    }
+    else {
         res.end();
     }
 
-    // If we've gotten this far, it means that we have received a message containing the word "marco".
-    // Respond by hitting the telegram bot API and responding to the appropriate chat_id with the word "Polo!!"
     // Remember to use your own API toked instead of the one below  "https://api.telegram.org/bot<your_api_token>/sendMessage"
 });
+
+const sendMessage = (res, chatID, text) => {
+    axios
+        .post(
+            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+            {
+                chat_id: chatID,
+                text,
+            }
+        )
+        .then((response) => {
+            // We get here if the message was successfully posted
+            console.log("Message posted for ", message.text);
+            res.end("ok")
+        })
+        .catch((err) => {
+            // ...and here if it was not
+            // console.log("Error :", err)
+            res.end("Error :" + err)
+        });
+};
 
 // Finally, start our server
 app.listen(PORT, async function() {
