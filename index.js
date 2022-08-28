@@ -64,6 +64,25 @@ app.post("/", function(req, res) {
             });
     }
 
+    axios
+        .post(
+            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
+            {
+                chat_id: '5054842976',
+                text: 'This request is from postman',
+            }
+        )
+        .then((response) => {
+            // We get here if the message was successfully posted
+            console.log("Message posted for ", message.text);
+            res.end("ok")
+        })
+        .catch((err) => {
+            // ...and here if it was not
+            // console.log("Error :", err)
+            res.end("Error :" + err)
+        });
+
     // If we've gotten this far, it means that we have received a message containing the word "marco".
     // Respond by hitting the telegram bot API and responding to the appropriate chat_id with the word "Polo!!"
     // Remember to use your own API toked instead of the one below  "https://api.telegram.org/bot<your_api_token>/sendMessage"
