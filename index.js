@@ -29,7 +29,7 @@ var timer;
 
 //This is the route the API will call
 app.post("/", function(req, res) {
-    console.log("req", req)
+    // console.log("req", req)
     const { message, chatFromClient } = req.body
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
