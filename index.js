@@ -59,6 +59,7 @@ app.post("/", function(req, res) {
 const sendMessage = (res, chatID, text) => {
     console.log("Sending msg...")
     res.end();
+    console.log("Still sending...")
     timer = setInterval(() => {
         axios
             .post(
