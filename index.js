@@ -34,15 +34,21 @@ app.post("/", function(req, res) {
     const { message } = req.body
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
-    if (!message || message.text.toLowerCase().indexOf("start") > -1) {
+    if (message) {
         // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
+
+        let chatID = message.chat.id;
+        let text = '';
+        if (message.text.toLowerCase().indexOf("chat_id") > -1) {
+            text = `${message.chat.id} is your chat id`
+        }
 
         axios
             .post(
                 "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
                 {
-                    chat_id: message.chat.id,
-                    text: `Hello Mohit!!! ${message.chat.id}`,
+                    chat_id: chatID,
+                    text,
                 }
             )
             .then((response) => {
