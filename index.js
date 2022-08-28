@@ -33,9 +33,7 @@ app.post("/", function(req, res) {
     const { message, chatFromClient } = req.body
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
-    if (message && !chatFromClient) {
-        // In case a message is not present, or if our message does not have the word marco in it, do nothing and return an empty response
-
+    if (message?.text && !chatFromClient) {
         let chatID = message.chat.id;
         let text = 'Hello there!';
         if (message.text.toLowerCase().indexOf("chat_id") > -1) {
@@ -45,6 +43,7 @@ app.post("/", function(req, res) {
         sendMessage(res, chatID, text);
     }
     else if (chatFromClient) {
+        console.log("msg from client for chat id ", chatFromClient);
         let chatID = chatFromClient;
         let text = `Water reminder. Stay hydrated!`;
 
