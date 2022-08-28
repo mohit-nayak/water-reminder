@@ -1,7 +1,5 @@
 var express = require("express")
-var http = require("http")
-// var app = express()
-var app = require('express.io')()
+var app = express()
 var bodyParser = require("body-parser")
 const axios = require("axios")
 
@@ -24,54 +22,16 @@ const webhookURL = `${SERVER_URL}${URI}`
     }
 }*/
 
-
-app.http().io()
-
-app.listen(PORT);
-
-app.get('/', function(req, res) {
-    // Do normal req and res here
-    // Forward to realtime route
-    axios
-        .post(
-            "https://api.telegram.org/bot5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78/sendMessage",
-            {
-                chat_id: message.chat.id,
-                text: `Hello Mohit!!! ${message.chat.id}`,
-            }
-        )
-        .then((response) => {
-            // We get here if the message was successfully posted
-            console.log("Message posted for ", message.text);
-            res.end("ok")
-        })
-        .catch((err) => {
-            // ...and here if it was not
-            // console.log("Error :", err)
-            res.end("Error :" + err)
-        });
-
-    req.io.route('hello')
-})
-
-server = http.createServer(app)
-io = require('socket.io').listen(server)
-require('./sockets')(io);
-
-// middlewares
-// app.use(express.json())
-
-/*app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.json()) // for parsing application/json
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-) // for parsing application/x-www-form-urlencoded*/
+) // for parsing application/x-www-form-urlencoded
 
 //This is the route the API will call
-/*app.post("/", function(req, res) {
+app.post("/", function(req, res) {
     const { message } = req.body
-    let i = 0;
     //Each message contains "text" and a "chat" object, which has an "id" which is the chat id
 
     if (!message || message.text.toLowerCase().indexOf("start") > -1) {
@@ -100,16 +60,9 @@ app.use(
     // If we've gotten this far, it means that we have received a message containing the word "marco".
     // Respond by hitting the telegram bot API and responding to the appropriate chat_id with the word "Polo!!"
     // Remember to use your own API toked instead of the one below  "https://api.telegram.org/bot<your_api_token>/sendMessage"
-});*/
+});
 
 // Finally, start our server
-/*
 app.listen(PORT, async function() {
-    try {
-        console.log(`Server is up and Running at PORT : ${PORT}`)
-        await setupWebhook()
-    } catch (error) {
-        console.log(error.message)
-    }
     console.log("Telegram app listening on port 3000!")
-})*/
+})
