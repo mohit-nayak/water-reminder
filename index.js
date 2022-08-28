@@ -43,6 +43,7 @@ app.post("/", function(req, res) {
         sendMessage(res, chatID, text);
     }
     else if (chatFromClient) {
+        console.log("chat from client for ", chatFromClient);
         let chatID = chatFromClient;
         let text = `Water reminder. Stay hydrated!`;
 
@@ -56,6 +57,7 @@ app.post("/", function(req, res) {
 });
 
 const sendMessage = (res, chatID, text) => {
+    console.log("Sending msg...")
     res.end();
     timer = setInterval(() => {
         axios
