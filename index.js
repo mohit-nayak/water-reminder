@@ -2,6 +2,7 @@ var express = require("express")
 var app = express()
 var bodyParser = require("body-parser")
 const axios = require("axios")
+var cors = require('cors');
 
 const PORT = 3000;
 const TELEGRAM_TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
@@ -19,6 +20,10 @@ app.use(
         extended: true,
     })
 ) // for parsing application/x-www-form-urlencoded
+
+cors({credentials: false, origin: false})
+
+app.use(cors());
 
 //This is the route the API will call
 app.post("/", function(req, res) {
@@ -62,7 +67,7 @@ const sendMessage = (res, chatID, text) => {
         .then((response) => {
             // We get here if the message was successfully posted
             console.log("Message posted for ", text);
-            res.end("ok")
+            res.end("Request successful")
         })
         .catch((err) => {
             // ...and here if it was not
