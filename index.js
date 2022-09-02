@@ -1,6 +1,6 @@
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-// const url = 'https://water-reminder-khaki.vercel.app';
-// const port = 3000;
+const url = `https://water-reminder-khaki.vercel.app/bot${TOKEN}`;
+const port = 3000;
 
 const TelegramBot = require('node-telegram-bot-api');
 // const express = require('express');
@@ -9,16 +9,15 @@ const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(TOKEN, {polling: true});
 
 // This informs the Telegram servers of the new webhook.
-// bot.setWebHook(`/`);
+bot.setWebHook(url);
 
-// const app = express();
+const app = express();
 
 // parse the updates to JSON
-// app.use(express.json());
+app.use(express.json());
 
 // We are receiving updates at the route below!
-/*
-app.post(`/`, (req, res) => {
+app.post(url, (req, res) => {
     console.log("requested")
     bot.processUpdate(req.body);
     res.sendStatus(200);
@@ -32,8 +31,9 @@ app.listen(port, () => {
 // Just to ping!
 bot.on('message', msg => {
     bot.sendMessage(msg.chat.id, 'I am alive!');
-});*/
+});
 
+/*
 let interval;
 let defaultTime = 15;
 
@@ -52,4 +52,4 @@ bot.on('message', (msg) => {
     if (message === "stop") {
         clearInterval(interval);
     }
-})
+})*/
