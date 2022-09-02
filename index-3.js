@@ -10,7 +10,3 @@ bot.on('text', function (msg) {
     bot.sendMessage(msg.chat.id, "Hello mohit");
     // bot.sendPhoto(chatId, photo, {caption: 'Lovely kittens'});
 });
-
-app.listen(3000, function() {
-    console.log("Telegram app listening on port 3000!")
-})
