@@ -1,12 +1,18 @@
 const { TelegramBot } = require("telegram-bot-nodejs");
+const { responseFor } = require("./utils");
 
 const TELEGRAM_TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, "5054842976");
 
-async function sendMessage() {
-    const response = await bot.sendMessage("Hello world");
-    console.log(response);
+async function main() {
+    //The first argument is the matching text for the callback to be executed
+    //The second argument is the callback function
+    let inputMsg;
+    await bot.onMessage(inputMsg, async () => {
+        const responseMsg = responseFor(inputMsg);
+        await bot.sendMessage(responseMsg);
+    });
 }
 
-sendMessage();
+main();
