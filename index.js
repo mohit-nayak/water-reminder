@@ -3,7 +3,7 @@ const url = `https://water-reminder-khaki.vercel.app/bot${TOKEN}`;
 const port = 3000;
 
 const TelegramBot = require('node-telegram-bot-api');
-// const express = require('express');
+const express = require('express');
 
 // No need to pass any parameters as we will handle the updates with Express
 const bot = new TelegramBot(TOKEN, {polling: true});
