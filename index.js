@@ -10,8 +10,8 @@ async function main() {
     //The second argument is the callback function
     // let inputMsg;
     await bot.onMessage("Hi", async () => {
-        const responseMsg = responseFor("Hi");
-        await bot.sendMessage(responseMsg);
+        // const responseMsg = responseFor("Hi");
+        await bot.sendMessage("Random text");
     });
 }
 
