@@ -1,15 +1,15 @@
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-const url = `https://water-reminder-khaki.vercel.app/bot${TOKEN}`;
+const url = 'https://water-reminder-khaki.vercel.app';
 const port = 3000;
 
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 
 // No need to pass any parameters as we will handle the updates with Express
-const bot = new TelegramBot(TOKEN, {polling: true});
+const bot = new TelegramBot(TOKEN);
 
 // This informs the Telegram servers of the new webhook.
-bot.setWebHook(url);
+bot.setWebHook(`${url}/bot${TOKEN}`);
 
 const app = express();
 
@@ -17,8 +17,7 @@ const app = express();
 app.use(express.json());
 
 // We are receiving updates at the route below!
-app.post(url, (req, res) => {
-    console.log("requested")
+app.post(`/bot${TOKEN}`, (req, res) => {
     bot.processUpdate(req.body);
     res.sendStatus(200);
 });
