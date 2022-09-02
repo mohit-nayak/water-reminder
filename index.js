@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 // We are receiving updates at the route below!
-app.post(`/bot${TOKEN}`, (req, res) => {
+app.post(`/`, (req, res) => {
     bot.processUpdate(req.body);
     res.sendStatus(200);
 });
