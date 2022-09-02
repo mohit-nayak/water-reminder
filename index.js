@@ -30,7 +30,7 @@ app.use(cors());
 // We are receiving updates at the route below!
 app.post('/', (req, res) => {
     console.log("Message received", req.body)
-    // bot.processUpdate(req.body);
+    bot.processUpdate(req.body);
     res.sendStatus(200);
 });
 
