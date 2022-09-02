@@ -1,9 +1,11 @@
+const TelegramBot = require('node-telegram-bot-api');
+const bodyParser = require("body-parser")
+const express = require('express');
+const cors = require('cors');
+
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 const url = 'https://api.telegram.org';
 const port = 3000;
-
-const TelegramBot = require('node-telegram-bot-api');
-const express = require('express');
 
 // No need to pass any parameters as we will handle the updates with Express
 const bot = new TelegramBot(TOKEN);
@@ -14,7 +16,16 @@ bot.setWebHook(`${url}/bot${TOKEN}`);
 const app = express();
 
 // parse the updates to JSON
-app.use(express.json());
+app.use(bodyParser.json())
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+)
+
+cors({credentials: false, origin: false})
+
+app.use(cors());
 
 // We are receiving updates at the route below!
 app.post('/', (req, res) => {
