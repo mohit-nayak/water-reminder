@@ -1,5 +1,5 @@
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-const url = 'https://water-reminder-khaki.vercel.app';
+const url = 'https://api.telegram.org';
 const port = 3000;
 
 const TelegramBot = require('node-telegram-bot-api');
