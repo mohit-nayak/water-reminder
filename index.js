@@ -1,12 +1,12 @@
-const { TelegramBot } = require("telegram-bot-nodejs");
+const { TelegramBot } = require("node-telegram-bot-api");
 
 const TELEGRAM_TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 
-const bot = new TelegramBot(TELEGRAM_TOKEN, "5054842976");
+const bot = new TelegramBot(TELEGRAM_TOKEN, {polling: true});
 
-async function sendMessage() {
-    const response = await bot.sendMessage("Water reminder. Stay hydrated!");
-    console.log(response);
-}
+bot.on('message', (msg) => {
+    const chatId = msg.chat.id;
 
-sendMessage();
+    // send a message to the chat acknowledging receipt of their message
+    bot.sendMessage(chatId, `Received your message from ${chatId}`);
+});
