@@ -1,4 +1,4 @@
-import * as TelegramBot from 'node-telegram-bot-api';
+var TelegramBot = require('node-telegram-bot-api');
 
 var token = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 // Setup polling way
@@ -10,3 +10,7 @@ bot.on('text', function (msg) {
     bot.sendMessage(msg.chat.id, "Hello mohit");
     // bot.sendPhoto(chatId, photo, {caption: 'Lovely kittens'});
 });
+
+app.listen(3000, function() {
+    console.log("Telegram app listening on port 3000!")
+})
