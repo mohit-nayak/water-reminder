@@ -8,7 +8,7 @@ const url = 'https://water-reminder-khaki.vercel.app';
 const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
-const bot = new telegramBot(TOKEN, { polling: { timeout: 2000, interval: 0 } });
+const bot = new telegramBot(TOKEN, { polling: true });
 
 bot.setWebHook(`${url}`);
 
@@ -54,6 +54,7 @@ bot.on('message', (msg) => {
         console.log("starting for time ", time);
         interval = setInterval(() => {
             count++;
+            console.log("inside interval ", count);
             bot.sendMessage(chatID, "Drink water! " + count);
         }, time);
         console.log("set done interval")
