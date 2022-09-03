@@ -54,6 +54,7 @@ bot.on('message', (msg) => {
         interval = setInterval(() => {
             bot.sendMessage(chatID, "Drink water!");
         }, time);
+        bot.sendMessage(chatID, "Drink water single!");
     }
 
     if (message.includes("stop")) {
