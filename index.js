@@ -1,62 +1,67 @@
-const express = require("express")
-const app = express()
+const TelegramBot = require('node-telegram-bot-api');
 const bodyParser = require("body-parser")
-const axios = require("axios")
+const express = require('express');
+const cors = require('cors');
 
-// const TelegramBot = require("node-telegram-bot-api");
+const TOKEN = '5655278639:AAG-N01lmDCMFMGpYoR36ZSuoctD9DPXcCY';
+const url = 'https://api.telegram.org';
+const port = 3000;
 
-const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
-const SERVER_URL = 'https://water-reminder-khaki.vercel.app';
+// No need to pass any parameters as we will handle the updates with Express
+const bot = new TelegramBot(TOKEN);
 
-const URI = `/webhook/${TOKEN}`;
-const webhookURL = `${SERVER_URL}${URI}`;
+// This informs the Telegram servers of the new webhook.
+bot.setWebHook(`${url}/bot${TOKEN}`);
 
+const app = express();
+
+// parse the updates to JSON
 app.use(bodyParser.json())
-/*app.use(
+app.use(
     bodyParser.urlencoded({
         extended: true,
     })
-)*/
+)
 
-const init = async () => {
-    const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${webhookURL}`)
-    console.log(res.data)
-}
+cors({credentials: false, origin: false})
 
-app.post(URI, async (req, res) => {
-    console.log(req.body)
+app.use(cors());
 
-    const chatId = req.body.message.chat.id
-    const text = req.body.message.text
+// We are receiving updates at the route below!
+app.post('/', (req, res) => {
+    console.log("Message received", req.body)
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
 
-    await axios.post(`${TELEGRAM_API}/sendMessage`, {
-        chat_id: chatId,
-        text: text
-    })
-    return res.send()
-})
 
-app.listen(3000, async () => {
-    console.log('🚀 app running on port', 3000)
-    await init()
-})
+// Start Express Server
+app.listen(port, () => {
+    console.log(`Express server is listening on ${port}`);
+});
+
+// Just to ping!
+bot.on('message', msg => {
+    bot.sendMessage(msg.chat.id, 'I am alive!');
+});
 
 /*
-const bot = new TelegramBot(TOKEN, {polling: true});
-console.log("bot")
-
-// bot.setWebHook(`${url}/bot${TELEGRAM_TOKEN}`);
-
-// bot.sendMessage('5054842976', `Received your message from 5054842976`);
-
+let interval;
+let defaultTime = 15;
 
 bot.on('message', (msg) => {
-    console.log("started ", msg);
-    console.log("started ", msg);
-    const chatId = msg.chat.id;
+    const chatID = msg.from.id;
+    const message = msg.text.toLowerCase();
 
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, `Received your message from ${chatId}`);
-});
-*/
+    if (message.includes("start")) {
+        const time = ((Number(message.split(" ")[1])) || defaultTime) * 60000;
+        console.log("starting for time ", time);
+        interval = setInterval(() => {
+            bot.sendMessage(chatID, "Drink water!");
+        }, time);
+    }
+
+    if (message === "stop") {
+        clearInterval(interval);
+    }
+})*/
