@@ -52,9 +52,9 @@ bot.on('message', (msg) => {
         let count = 0;
         const time = ((Number(message.split(" ")[1])) || defaultTime) * 60000;
         console.log("starting for time ", time);
-        interval = setInterval(async () => {
+        interval = setInterval(() => {
             count++;
-            await bot.sendMessage(chatID, "Drink water!");
+            bot.sendMessage(chatID, "Drink water!");
             count++;
         }, time);
         bot.sendMessage(chatID, "Drink water single! " + count);
