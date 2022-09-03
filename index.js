@@ -54,13 +54,8 @@ bot.on('message', (msg) => {
         console.log("starting for time ", time);
         interval = setInterval(() => {
             count++;
-            bot.sendMessage(chatID, "Drink water!");
-            count++;
+            bot.sendMessage(chatID, "Drink water! " + count);
         }, time);
-        bot.sendMessage(chatID, "Drink water single! " + count);
-        setTimeout(() => {
-            bot.sendMessage(chatID, "Drink water from timout! " + count);
-        }, 8000)
         console.log("set done interval")
     }
 
