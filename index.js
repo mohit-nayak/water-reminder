@@ -8,7 +8,7 @@ const url = 'https://water-reminder-khaki.vercel.app';
 const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
-const bot = new telegramBot(TOKEN, { polling: { timeout: 0, interval: 1000 } });
+const bot = new telegramBot(TOKEN, { polling: true });
 
 bot.setWebHook(`${url}`);
 
