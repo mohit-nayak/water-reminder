@@ -4,13 +4,13 @@ const express = require('express');
 const cors = require('cors');
 
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-const url = 'https://api.telegram.org';
+const url = 'https://water-reminder-khaki.vercel.app';
 const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
 const bot = new telegramBot(TOKEN);
 
-bot.setWebHook(`${url}/bot${TOKEN}`);
+bot.setWebHook(`${url}`);
 
 const app = express();
 
