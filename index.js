@@ -39,7 +39,7 @@ app.listen(port, () => {
     console.log(`Express server is listening on ${port}`);
 });
 
-bot.sendMessage('5054842976', "Drink water!");
+// bot.sendMessage('5054842976', "Drink water!");
 
 let interval;
 let defaultTime = 15;
