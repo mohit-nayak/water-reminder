@@ -49,12 +49,18 @@ bot.on('message', (msg) => {
     const message = msg.text.toLowerCase();
 
     if (message.includes("start")) {
+        let count = 0;
         const time = ((Number(message.split(" ")[1])) || defaultTime) * 60000;
         console.log("starting for time ", time);
-        interval = setInterval(() => {
-            bot.sendMessage(chatID, "Drink water!");
+        interval = setInterval(async () => {
+            count++;
+            await bot.sendMessage(chatID, "Drink water!");
+            count++;
         }, time);
-        bot.sendMessage(chatID, "Drink water single!");
+        bot.sendMessage(chatID, "Drink water single! " + count);
+        setTimeout(() => {
+            bot.sendMessage(chatID, "Drink water from timout! " + count);
+        }, 8000)
         console.log("set done interval")
     }
 
