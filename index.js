@@ -1,16 +1,15 @@
-const TelegramBot = require('node-telegram-bot-api');
+const telegramBot = require('node-telegram-bot-api');
 const bodyParser = require("body-parser")
 const express = require('express');
 const cors = require('cors');
 
-const TOKEN = '5655278639:AAG-N01lmDCMFMGpYoR36ZSuoctD9DPXcCY';
+const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 const url = 'https://api.telegram.org';
 const port = 3000;
 
-// No need to pass any parameters as we will handle the updates with Express
-const bot = new TelegramBot(TOKEN);
+// const bot = new telegramBot(TOKEN, { polling: true });
+const bot = new telegramBot(TOKEN);
 
-// This informs the Telegram servers of the new webhook.
 bot.setWebHook(`${url}/bot${TOKEN}`);
 
 const app = express();
@@ -40,12 +39,7 @@ app.listen(port, () => {
     console.log(`Express server is listening on ${port}`);
 });
 
-// Just to ping!
-bot.on('message', msg => {
-    bot.sendMessage(msg.chat.id, 'I am alive!');
-});
 
-/*
 let interval;
 let defaultTime = 15;
 
@@ -61,7 +55,7 @@ bot.on('message', (msg) => {
         }, time);
     }
 
-    if (message === "stop") {
+    if (message.includes("stop")) {
         clearInterval(interval);
     }
-})*/
+})
