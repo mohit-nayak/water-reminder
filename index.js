@@ -1,18 +1,18 @@
 const telegramBot = require('node-telegram-bot-api');
-// const bodyParser = require("body-parser")
-// const express = require('express');
-// const cors = require('cors');
+const bodyParser = require("body-parser")
+const express = require('express');
+const cors = require('cors');
 
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-const url = 'https://water-reminder-khaki.vercel.app';
-// const port = 3000;
+const url = 'https://water-reminder-1.herokuapp.com';
+const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
 const bot = new telegramBot(TOKEN, { polling: true });
 
-/*bot.setWebHook(`${url}`);
+bot.setWebHook(`${url}`);
 
-/!*const app = express();
+const app = express();
 
 // parse the updates to JSON
 app.use(bodyParser.json())
@@ -31,13 +31,13 @@ app.post('/', (req, res) => {
     console.log("Message received", req.body)
     bot.processUpdate(req.body);
     res.sendStatus(200);
-});*!/
+});
 
 
 // Start Express Server
 app.listen(port, () => {
     console.log(`Express server is listening on ${port}`);
-});*/
+});
 
 let interval;
 let defaultTime = 15;
