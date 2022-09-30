@@ -4,7 +4,7 @@ const telegramBot = require('node-telegram-bot-api');
 // const cors = require('cors');
 
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
-// const url = 'https://water-reminder-khaki.vercel.app';
+const url = 'https://water-reminder-khaki.vercel.app';
 // const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
@@ -49,13 +49,10 @@ bot.on('message', (msg) => {
     if (message.includes("start")) {
         let count = 0;
         const time = ((Number(message.split(" ")[1])) || defaultTime) * 60000;
-        console.log("starting for time ", time);
         interval = setInterval(() => {
             count++;
-            console.log("inside interval ", count);
-            bot.sendMessage(chatID, "Drink water! " + count);
+            bot.sendMessage(chatID, "Drink water. Stay hydrated!");
         }, time);
-        console.log("set done interval")
     }
 
     if (message.includes("stop")) {
