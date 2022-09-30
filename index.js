@@ -8,7 +8,7 @@ const url = 'https://water-reminder-1.herokuapp.com';
 const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
-const bot = new telegramBot(TOKEN, { polling: true });
+const bot = new telegramBot(TOKEN);
 
 bot.setWebHook(`${url}`);
 
@@ -16,11 +16,13 @@ const app = express();
 
 // parse the updates to JSON
 app.use(bodyParser.json())
+/*
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
 )
+*/
 
 cors({credentials: false, origin: false})
 
@@ -30,7 +32,7 @@ app.use(cors());
 app.post('/', (req, res) => {
     console.log("Message received", req.body)
     bot.processUpdate(req.body);
-    res.sendStatus(200);
+    res.sendStatus(200).json({ message: 'ok' });
 });
 
 
@@ -42,7 +44,7 @@ app.listen(port, () => {
 let interval;
 let defaultTime = 15;
 
-bot.on('message', (msg) => {
+bot.on('message', async (msg) => {
     const chatID = msg.from.id;
     const message = msg.text.toLowerCase();
 
