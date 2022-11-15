@@ -1,21 +1,21 @@
 const telegramBot = require('node-telegram-bot-api');
-const bodyParser = require("body-parser")
+// const bodyParser = require("body-parser")
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 
 const TOKEN = '5743867232:AAEqMVYKx3WHXfrKLsrtEoid_sY9mEwcg78';
 const url = 'https://water-reminder-1.herokuapp.com';
 const port = 3000;
 
 // const bot = new telegramBot(TOKEN, { polling: true });
-const bot = new telegramBot(TOKEN);
+const bot = new telegramBot(TOKEN, { polling: true });
 
-bot.setWebHook(`${url}`);
+// bot.setWebHook(`${url}`);
 
-const app = express();
+// const app = express();
 
 // parse the updates to JSON
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 /*
 app.use(
     bodyParser.urlencoded({
@@ -24,22 +24,26 @@ app.use(
 )
 */
 
-cors({credentials: false, origin: false})
+// cors({credentials: false, origin: false})
 
-app.use(cors());
+// app.use(cors());
 
 // We are receiving updates at the route below!
-app.post('/', (req, res) => {
+/*app.post('/', (req, res) => {
     console.log("Message received", req.body)
     bot.processUpdate(req.body);
     res.sendStatus(200).json({ message: 'ok' });
-});
+});*/
 
 
 // Start Express Server
-app.listen(port, () => {
+/*app.listen(port, () => {
     console.log(`Express server is listening on ${port}`);
-});
+});*/
+
+
+// ============================================================
+
 
 let interval;
 let defaultTime = 15;
