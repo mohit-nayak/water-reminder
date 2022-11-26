@@ -31,7 +31,7 @@ const initHisWaterReminder = async () => {
     }, time);
 };
 
-// initHerWaterReminder();
+initHerWaterReminder();
 initHisWaterReminder();
 
 bot.on('message', async (msg) => {
