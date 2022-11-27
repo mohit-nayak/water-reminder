@@ -34,7 +34,7 @@ const initHisWaterReminder = async () => {
 initHerWaterReminder();
 initHisWaterReminder();
 
-bot.on('message', async (msg) => {
+/*bot.on('message', async (msg) => {
     const chatID = msg.from.id;
     const message = msg.text.toLowerCase();
 
@@ -52,7 +52,7 @@ bot.on('message', async (msg) => {
     } else if (message.includes("stop")) {
         clearInterval(interval);
     }
-});
+});*/
 
 bot.on('polling_error', (error) => {
     console.log("error ", error);
